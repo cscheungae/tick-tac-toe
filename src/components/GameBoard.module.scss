@@ -1,18 +1,50 @@
 $cellSideLen: 90px;
 
+@mixin cellStatusStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 70px;
+}
+
+@mixin disabledCell {
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .wrapper :global {
   div#gameBoard {
     div.board {
       padding-top: 30px;
       display: grid;
 
+      &.disabled {
+        @include disabledCell();
+      }
+
       @for $i from 0 through 8 {
         .cell#{$i} {
           grid-area: c#{$i};
           width: $cellSideLen;
           height: $cellSideLen;
-          background-color: red;
+          background-color: rgba(100, 100, 100, 0.9);
           border: 1px solid rgba(0, 0, 0, 0.3);
+
+          &.cell-status-0 {
+            background-color: red;
+            @include disabledCell;
+            &::after {
+              @include cellStatusStyle;
+              content: 'X';
+            }
+          }
+          &.cell-status-1 {
+            background-color: green;
+            @include disabledCell;
+            &::after {
+              @include cellStatusStyle;
+              content: 'O';
+            }
+          }
         }
       }
 
