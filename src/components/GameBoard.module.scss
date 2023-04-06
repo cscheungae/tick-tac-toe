@@ -1,0 +1,25 @@
+$cellSideLen: 90px;
+
+.wrapper :global {
+  div#gameBoard {
+    div.board {
+      padding-top: 30px;
+      display: grid;
+
+      @for $i from 0 through 8 {
+        .cell#{$i} {
+          grid-area: c#{$i};
+          width: $cellSideLen;
+          height: $cellSideLen;
+          background-color: red;
+          border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      grid-template-areas:
+        'c0 c1 c2'
+        'c3 c4 c5'
+        'c6 c7 c8';
+    }
+  }
+}
